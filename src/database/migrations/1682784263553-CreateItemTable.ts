@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class CreateItemsTable1682784263553 implements MigrationInterface {
+export class CreateItemTable1682784263553 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-        CREATE TABLE "items" (
+        CREATE TABLE "item" (
             "id" serial PRIMARY KEY,
 	
             "title" varchar(256) NOT NULL,
@@ -14,6 +14,6 @@ export class CreateItemsTable1682784263553 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "items"`)
+    await queryRunner.query(`DROP TABLE "item"`)
   }
 }

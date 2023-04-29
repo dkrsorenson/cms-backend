@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { getItems } from '../services/items.service'
+import { getItems } from '../services/item.service'
 
 /**
  * Handles request for the list of items

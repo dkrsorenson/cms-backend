@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import items from './items.router'
+import items from './item.router'
 
 const router = Router()
 
