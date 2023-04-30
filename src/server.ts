@@ -38,11 +38,11 @@ export class ApplicationServer {
     const app: Application = express()
 
     app.disable('x-powered-by')
+    app.use(express.json())
     app.use('/', routes)
 
     //app.use(cors())
     //app.use(compression())
-    //app.use(bodyParser.json())
 
     return app
   }

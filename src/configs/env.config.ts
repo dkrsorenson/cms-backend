@@ -14,6 +14,8 @@ interface ENV {
   DB_PASSWORD: string | undefined
   DB_PORT: number | undefined
   DB_POOL_SIZE: number | undefined
+  JWT_SECRET: string | undefined
+  JWT_EXPIRATION: string | undefined
 }
 
 interface Config {
@@ -25,6 +27,8 @@ interface Config {
   DB_PASSWORD: string
   DB_PORT: number
   DB_POOL_SIZE: number
+  JWT_SECRET: string
+  JWT_EXPIRATION: string
 }
 
 // Loading process.env as ENV interface
@@ -38,6 +42,8 @@ const getConfig = (): ENV => {
     DB_PASSWORD: process.env.DB_PASSWORD ? String(process.env.DB_PASSWORD) : undefined,
     DB_PORT: process.env.DB_PORT ? Number(process.env.DB_PORT) : undefined,
     DB_POOL_SIZE: process.env.DB_POOL_SIZE ? Number(process.env.DB_POOL_SIZE) : undefined,
+    JWT_SECRET: process.env.JWT_SECRET ? String(process.env.JWT_SECRET) : undefined,
+    JWT_EXPIRATION: process.env.JWT_EXPIRATION ? String(process.env.JWT_EXPIRATION) : undefined,
   }
 }
 

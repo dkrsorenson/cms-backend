@@ -10,7 +10,7 @@ export const dataSourceConfig: DataSourceOptions = {
   username: config.DB_USER,
   password: config.DB_PASSWORD,
   database: config.DB_DATABASE,
-  entities: [path.join(__dirname, '../models/**/*.{ts,js}')],
+  entities: [path.join(__dirname, '../database/entities/**/*.{ts,js}')],
   migrations: [path.join(__dirname, '../database/migrations/**/*.{ts,js}')],
   migrationsTableName: 'migrations',
   migrationsRun: true,

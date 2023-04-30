@@ -1,5 +1,5 @@
 import { appDataSource } from '../database/datasource'
-import { Item } from '../models/item.model'
+import { Item } from '../database/entities/item.entity'
 
 const itemRepository = appDataSource.getRepository(Item)
 

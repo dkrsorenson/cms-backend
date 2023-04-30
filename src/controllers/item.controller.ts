@@ -14,6 +14,6 @@ export async function list(req: Request, res: Response): Promise<void> {
     res.status(200).json(items)
   } catch (err) {
     console.error(err)
-    res.status(400).json('message: Failed to retrieve list of items')
+    res.status(400).json({ message: 'Failed to retrieve list of items' })
   }
 }
