@@ -9,6 +9,6 @@ export class SeedItemTable1682787018376 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DELETE FROM "items"`)
+    await queryRunner.query(`DELETE FROM "item"`)
   }
 }

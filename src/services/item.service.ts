@@ -13,19 +13,18 @@ export async function getItems(): Promise<Item[]> {
 }
 
 /**
- * Gets a list of items from the repository
- * @returns List of items
+ * Gets the item by ID from the repository
+ * @returns The item with the specified ID
  */
 export async function getItemById(id: number): Promise<Item | null> {
   return itemRepository.findOneBy({ id: id })
 }
 
 /**
- * Gets a list of items from the repository
- * @returns List of items
+ * Creates an item in the repository
  */
 export async function createItem(): Promise<void> {
-  // return itemsRepository.save()
+  // return itemRepository.save()
   throw new Error(`Not implemented`)
 }
 
@@ -34,13 +33,12 @@ export async function createItem(): Promise<void> {
  * @param id The item ID
  */
 export async function updateItem(id: number): Promise<void> {
-  // const item = itemsRepository.findOneBy({ id: id })
+  // const item = itemRepository.findOneBy({ id: id })
 
   throw new Error(`Not implemented`)
 }
 /**
  * Deletes an item from the repository
- * @returns List of items
  */
 export async function deleteItem(): Promise<void> {
   throw new Error(`Not implemented`)
