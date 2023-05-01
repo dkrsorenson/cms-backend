@@ -1,6 +1,5 @@
-export type JwtPayload = {
-  uid: string
-  username: string
+export type InternalJwtPayload = {
+  userUid: string
   createdAt: Date
 }
 

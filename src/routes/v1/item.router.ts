@@ -1,13 +1,14 @@
 import { Router } from 'express'
 
 import * as itemController from '../../controllers/item.controller'
+import { checkJwt, checkUser } from '../../middlewares'
 
 const itemRouter = Router()
 
-itemRouter.get('/', itemController.listItems)
-itemRouter.get('/:id', itemController.getItemById)
-itemRouter.post('/', itemController.createItem)
-itemRouter.patch('/:id', itemController.updateItem)
-itemRouter.delete('/:id', itemController.deleteItem)
+itemRouter.get('/', [checkJwt, checkUser], itemController.listItems)
+itemRouter.get('/:id([0-9]+)', [checkJwt, checkUser], itemController.getItemById)
+itemRouter.post('/', [checkJwt, checkUser], itemController.createItem)
+itemRouter.patch('/:id([0-9]+)', [checkJwt, checkUser], itemController.updateItem)
+itemRouter.delete('/:id([0-9]+)', [checkJwt, checkUser], itemController.deleteItem)
 
 export default itemRouter

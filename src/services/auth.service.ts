@@ -1,13 +1,15 @@
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt, { VerifyOptions } from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+
+import config from '../configs/env.config'
 
 import { StatusCode } from '../types/http-status-codes'
 import { ErrorResponse } from '../types/errors/error.types'
 import { Result } from '../types/responses/response.types'
-import { LoginResponse, SignupPayload, SignupResponse } from '../types/auth/auth.types'
+import { InternalJwtPayload, LoginResponse, SignupPayload, SignupResponse } from '../types/auth/auth.types'
 
 import { UserStatus } from '../database/entities/user.entity'
-import * as userService from './user.service'
+import userService from './user.service'
 
 export async function login(username: string, pin: string): Promise<Result<LoginResponse, ErrorResponse>> {
   const user = await userService.getUserByUsername(username)
@@ -37,7 +39,6 @@ export async function login(username: string, pin: string): Promise<Result<Login
   }
 
   if (user.status !== UserStatus.Active) {
-    console.log(`User account is not active [username: ${username}, status: ${user.status}]`)
     return {
       result: 'error',
       statusCode: StatusCode.BAD_REQUEST,
@@ -48,15 +49,14 @@ export async function login(username: string, pin: string): Promise<Result<Login
   }
 
   const token = createJwtToken({
-    uid: user.uid,
-    username: user.username,
+    userUid: user.uid,
     createdAt: new Date(),
   })
 
   return {
     result: 'success',
     value: {
-      token: `Bearer ${token}`,
+      token: token,
     },
   }
 }
@@ -64,8 +64,6 @@ export async function login(username: string, pin: string): Promise<Result<Login
 export async function signup(payload: SignupPayload): Promise<Result<SignupResponse, ErrorResponse>> {
   const existingUser = await userService.getUserByUsername(payload.username)
   if (existingUser) {
-    console.log(`User already exists with username [username: ${payload.username}]`)
-
     return {
       result: 'error',
       statusCode: StatusCode.BAD_REQUEST,
@@ -91,15 +89,17 @@ export async function signup(payload: SignupPayload): Promise<Result<SignupRespo
       },
     }
   } catch (err) {
-    console.error(`Failed to insert user record`, err)
+    console.error(err)
     throw new Error(`Signup unexpectedly failed. Please try again.`)
   }
 }
 
-export function createJwtToken(payload: JwtPayload) {
-  return jwt.sign(payload, process.env.JWT_SECRET!, {
-    expiresIn: process.env.JWT_EXPIRATION,
-  })
+export function createJwtToken(payload: InternalJwtPayload) {
+  return jwt.sign(payload, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRATION })
+}
+
+export function verifyJwtToken(token: string, options?: VerifyOptions) {
+  return jwt.verify(token, config.JWT_SECRET, options)
 }
 
 async function hashPassword(password: string): Promise<string> {
@@ -110,4 +110,11 @@ async function hashPassword(password: string): Promise<string> {
 
 async function comparePassword(password: string, hashedPassword: string): Promise<boolean> {
   return await bcrypt.compare(password, hashedPassword)
+}
+
+export default {
+  login,
+  signup,
+  createJwtToken,
+  verifyJwtToken,
 }

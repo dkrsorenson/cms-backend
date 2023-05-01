@@ -18,6 +18,7 @@ interface ENV {
   JWT_EXPIRATION: string | undefined
 }
 
+// Interface for configs
 interface Config {
   PORT: number
   HOST: string
@@ -47,12 +48,7 @@ const getConfig = (): ENV => {
   }
 }
 
-// Throwing an Error if any field was undefined we don't
-// want our app to run if it can't connect to DB and ensure
-// that these fields are accessible. If all is good return
-// it as Config which just removes the undefined from our type
-// definition.
-
+// Throw an Error if any fields are undefined
 const getSanitzedConfig = (config: ENV): Config => {
   for (const [key, value] of Object.entries(config)) {
     if (value === undefined) {

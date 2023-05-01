@@ -5,3 +5,9 @@ export type CreateUserPayload = {
   pinHash: string
   status: UserStatus
 }
+
+export type UserResponse = {
+  uid: string
+  username: string
+  status: UserStatus
+}
