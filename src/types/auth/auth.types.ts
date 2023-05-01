@@ -9,7 +9,9 @@ export type SignupPayload = {
   pin: string
 }
 
-export type SignupResponse = {}
+export type SignupResponse = {
+  message: string
+}
 
 export type LoginResponse = {
   token: string

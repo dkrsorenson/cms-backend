@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
-import StatusCode from '../types/http-status-codes'
+import { StatusCode } from '../types/http-status-codes'
 import { ErrorResponse } from '../types/errors/error.types'
 import { Result } from '../types/responses/response.types'
 import { LoginResponse, SignupPayload, SignupResponse } from '../types/auth/auth.types'
@@ -83,14 +83,16 @@ export async function signup(payload: SignupPayload): Promise<Result<SignupRespo
       pinHash: pinHash,
       status: UserStatus.Active,
     })
+
+    return {
+      result: 'success',
+      value: {
+        message: 'Successfully registered user.',
+      },
+    }
   } catch (err) {
     console.error(`Failed to insert user record`, err)
     throw new Error(`Signup unexpectedly failed. Please try again.`)
-  }
-
-  return {
-    result: 'success',
-    value: {},
   }
 }
 

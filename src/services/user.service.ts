@@ -14,12 +14,13 @@ export async function getUserById(id: number): Promise<User | null> {
 }
 
 export async function createUser(payload: CreateUserPayload): Promise<User> {
-  const user = new User()
-  user.username = payload.username
-  user.pinHash = payload.pinHash
-  user.status = payload.status
+  const user = userRepository.create({
+    username: payload.username,
+    pinHash: payload.pinHash,
+    status: payload.status,
+  })
 
-  await userRepository.save(user)
+  const createdUser = await userRepository.save(user)
 
-  return user
+  return createdUser
 }

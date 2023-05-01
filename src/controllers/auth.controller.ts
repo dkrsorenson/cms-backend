@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import * as authService from '../services/auth.service'
-import StatusCode from '../types/http-status-codes'
+import { StatusCode } from '../types/http-status-codes'
 
 /**
  * Handles request for login
@@ -20,7 +20,7 @@ export async function login(req: Request, res: Response): Promise<void> {
     }
   } catch (err: any) {
     const message = err.message ?? `Sorry, something went wrong.`
-    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ result: 'error', message: message })
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: message })
   }
 }
 
@@ -35,12 +35,12 @@ export async function signup(req: Request, res: Response): Promise<void> {
     const response = await authService.signup({ username: username, pin: pin })
 
     if (response.result === 'success') {
-      res.status(StatusCode.OK).json(response.value)
+      res.status(StatusCode.CREATED).json(response.value)
     } else {
       res.status(response.statusCode).json(response.error)
     }
   } catch (err: any) {
     const message = err.message ?? `Sorry, something went wrong.`
-    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ result: 'error', message: message })
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: message })
   }
 }

@@ -1,8 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 export enum ItemStatus {
-  Active = 'active',
-  Inactive = 'inactive',
+  Published = 'published',
+  Draft = 'draft',
+}
+
+export enum ItemVisibility {
+  Public = 'public',
+  Private = 'private',
 }
 
 @Entity()
@@ -21,6 +26,9 @@ export class Item {
 
   @Column({ type: 'enum', enum: ItemStatus })
   status!: ItemStatus
+
+  @Column({ type: 'enum', enum: ItemVisibility })
+  visibility!: ItemVisibility
 
   @Column({ name: 'created_at' })
   createdAt!: Date
