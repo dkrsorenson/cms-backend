@@ -20,9 +20,9 @@ export async function getUserByUid(uid: string): Promise<User | null> {
   return await userRepository.findOne({ where: { uid: uid } })
 }
 
-export async function getMe(uid: string): Promise<Result<UserResponse, ErrorResponse>> {
-  const user = await getUserByUid(uid)
-  if (!user || user.uid !== uid) {
+export async function getMe(id: number): Promise<Result<UserResponse, ErrorResponse>> {
+  const user = await getUserById(id)
+  if (!user || user.id !== id) {
     return {
       result: 'error',
       statusCode: StatusCode.NOT_FOUND,
@@ -55,6 +55,7 @@ export async function createUser(payload: CreateUserPayload): Promise<User> {
 }
 
 export default {
+  getMe,
   getUserById,
   getUserByUid,
   getUserByUsername,

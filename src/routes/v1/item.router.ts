@@ -1,7 +1,7 @@
 import { Router } from 'express'
-
-import * as itemController from '../../controllers/item.controller'
 import { checkJwt, checkUser } from '../../middlewares'
+
+import itemController from '../../controllers/item.controller'
 
 const itemRouter = Router()
 

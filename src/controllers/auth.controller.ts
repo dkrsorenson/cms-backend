@@ -44,3 +44,8 @@ export async function signup(req: Request, res: Response): Promise<void> {
     res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: message })
   }
 }
+
+export default {
+  login,
+  signup,
+}

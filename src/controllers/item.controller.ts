@@ -126,3 +126,11 @@ export async function deleteItem(req: Request, res: Response): Promise<void> {
     res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Failed to update item.' })
   }
 }
+
+export default {
+  getItemById,
+  listItems,
+  createItem,
+  updateItem,
+  deleteItem,
+}
