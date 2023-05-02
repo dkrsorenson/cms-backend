@@ -1,8 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 export enum ItemStatus {
-  Published = 'published',
+  Active = 'active',
   Draft = 'draft',
+  Inactive = 'inactive',
+  Archived = 'archived',
 }
 
 export enum ItemVisibility {
@@ -30,9 +32,9 @@ export class Item {
   @Column({ type: 'enum', enum: ItemVisibility })
   visibility!: ItemVisibility
 
-  @Column({ name: 'created_at' })
+  @Column({ name: 'created_at', update: false })
   createdAt!: Date
 
-  @Column({ name: 'updated_at' })
+  @Column({ name: 'updated_at', update: false })
   updatedAt!: Date
 }

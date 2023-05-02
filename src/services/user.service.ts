@@ -3,7 +3,7 @@ import { appDataSource } from '../database/datasource'
 import { User } from '../database/entities/user.entity'
 import { ErrorResponse } from '../types/errors/error.types'
 import { StatusCode } from '../types/http-status-codes'
-import { Result } from '../types/responses/response.types'
+import { Result } from '../types/result.type'
 import { CreateUserPayload, UserResponse } from '../types/user/user.types'
 
 const userRepository = appDataSource.getRepository(User)

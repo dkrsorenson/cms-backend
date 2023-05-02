@@ -1,9 +1,9 @@
 import { appDataSource } from '../database/datasource'
-import { Item, ItemStatus } from '../database/entities/item.entity'
+import { Item } from '../database/entities/item.entity'
 
 import { ErrorResponse } from '../types/errors/error.types'
 import { StatusCode } from '../types/http-status-codes'
-import { Result } from '../types/responses/response.types'
+import { Result } from '../types/result.type'
 import {
   CreateItemPayload,
   CreateItemResponse,
@@ -49,15 +49,15 @@ export async function getItems(userId: number, payload: FilterItemsPayload): Pro
       itemsQueryBuilder.andWhere({ visibility: properties.visibility })
     }
 
-    if (properties?.createdAt) {
-      itemsQueryBuilder.andWhere(`date_trunc('day', "createdAt") = :createdAt`, {
-        createdAt: properties.createdAt.format('yyyy-mm-dd'),
-      })
+    // Only doing 1:1 comparison for now
+    if (properties?.title) {
+      itemsQueryBuilder.andWhere({ title: properties.title })
     }
   }
 
   // Sort and order by fields
   if (payload?.sort) {
+    const columnNames = itemRepository.metadata.columns.map(x => x.propertyName)
     const sortedFields = payload.sort.split(',')
     sortedFields.forEach(field => {
       const values = field.split(':')
@@ -68,7 +68,9 @@ export async function getItems(userId: number, payload: FilterItemsPayload): Pro
       const property = values[0]
       const direction = values[1].toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
 
-      itemsQueryBuilder.orderBy(`item.${property}`, direction)
+      if (columnNames.includes(property)) {
+        itemsQueryBuilder.orderBy(`item.${property}`, direction)
+      }
     })
   }
 
@@ -98,24 +100,17 @@ export async function getItems(userId: number, payload: FilterItemsPayload): Pro
  * @returns The item response or an error response
  */
 export async function getItemById(id: number, userId: number): Promise<Result<GetItemResponse, ErrorResponse>> {
-  const item = await itemRepository.findOne({ where: { id: id } })
+  const item = await itemRepository.findOne({
+    select: ['id', 'title', 'content', 'status', 'visibility', 'createdAt', 'updatedAt'],
+    where: { id: id, userId: userId },
+  })
+
   if (!item) {
     return {
       result: 'error',
       statusCode: StatusCode.NOT_FOUND,
       error: {
         message: 'Item not found.',
-      },
-    }
-  }
-
-  // If the item doesn't belong to the user, return forbidden error
-  if (item.userId !== userId) {
-    return {
-      result: 'error',
-      statusCode: StatusCode.FORBIDDEN,
-      error: {
-        message: 'You do not have permission to access this item.',
       },
     }
   }
@@ -163,24 +158,13 @@ export async function updateItem(
   userId: number,
   payload: UpdateItemPayload,
 ): Promise<Result<UpdateItemResponse, ErrorResponse>> {
-  const item = await itemRepository.findOne({ where: { id: id } })
+  const item = await itemRepository.findOne({ where: { id: id, userId: userId } })
   if (!item) {
     return {
       result: 'error',
       statusCode: StatusCode.NOT_FOUND,
       error: {
         message: 'Item not found.',
-      },
-    }
-  }
-
-  // If the item doesn't belong to the user, return forbidden error
-  if (item.userId !== userId) {
-    return {
-      result: 'error',
-      statusCode: StatusCode.FORBIDDEN,
-      error: {
-        message: 'You do not have permission to access this item.',
       },
     }
   }
@@ -208,17 +192,6 @@ export async function deleteItem(id: number, userId: number): Promise<Result<Del
       statusCode: StatusCode.NOT_FOUND,
       error: {
         message: 'Item not found.',
-      },
-    }
-  }
-
-  // If the item doesn't belong to the user, return forbidden error
-  if (item.userId !== userId) {
-    return {
-      result: 'error',
-      statusCode: StatusCode.FORBIDDEN,
-      error: {
-        message: 'You do not have permission to access this item.',
       },
     }
   }

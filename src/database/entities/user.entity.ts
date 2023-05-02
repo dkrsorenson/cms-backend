@@ -23,9 +23,9 @@ export class User {
   @Column({ type: 'enum', enum: UserStatus })
   status!: UserStatus
 
-  @Column({ name: 'created_at' })
+  @Column({ name: 'created_at', update: false })
   createdAt!: Date
 
-  @Column({ name: 'updated_at' })
+  @Column({ name: 'updated_at', update: false })
   updatedAt!: Date
 }

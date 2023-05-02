@@ -19,6 +19,7 @@ export async function listItems(req: Request, res: Response): Promise<void> {
     const queryObj = { ...req.query }
 
     // Get the item properties to filter by
+    // Note: Excluding filtering by create/updated at date for now
     const excludedFields = ['page', 'sort', 'limit']
     excludedFields.forEach(x => delete queryObj[x])
 

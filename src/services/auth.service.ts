@@ -5,7 +5,7 @@ import config from '../configs/env.config'
 
 import { StatusCode } from '../types/http-status-codes'
 import { ErrorResponse } from '../types/errors/error.types'
-import { Result } from '../types/responses/response.types'
+import { Result } from '../types/result.type'
 import { InternalJwtPayload, LoginResponse, SignupPayload, SignupResponse } from '../types/auth/auth.types'
 
 import { UserStatus } from '../database/entities/user.entity'
