@@ -1,7 +1,17 @@
 import { Item, ItemStatus, ItemVisibility } from '../../database/entities/item.entity'
 
+export type FilterItemsPayload = {
+  page?: number
+  limit?: number
+  sort?: string
+  where?: string
+}
+
 export type GetItemsResponse = {
   count: number
+  totalCount: number
+  page: number
+  perPageCount: number
   items: Item[]
 }
 

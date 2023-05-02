@@ -10,6 +10,7 @@ import {
   DeleteItemResponse,
   GetItemResponse,
   GetItemsResponse,
+  FilterItemsPayload,
   UpdateItemPayload,
   UpdateItemResponse,
 } from '../types/item/item.types'
@@ -17,14 +18,75 @@ import {
 const itemRepository = appDataSource.getRepository(Item)
 
 /**
- * Gets a list of items from the repository
+ * Gets a filtered, sorted, and/or paginated list of the user's items from the repository
+ * @param userId The user's ID
+ * @param payload Object containing filtering, pagination, and sorting information
  * @returns The list of items response or an error response
  */
-export async function getItems(): Promise<GetItemsResponse> {
-  const items = await itemRepository.find({ where: { status: ItemStatus.Published } })
+export async function getItems(userId: number, payload: FilterItemsPayload): Promise<GetItemsResponse> {
+  // Start the query builder
+  let itemsQueryBuilder = itemRepository
+    .createQueryBuilder('item')
+    .select([
+      'item.id',
+      'item.title',
+      'item.content',
+      'item.status',
+      'item.visibility',
+      'item.createdAt',
+      'item.updatedAt',
+    ])
+    .where({ userId: userId })
+
+  // Add filters
+  const properties = payload?.where ? JSON.parse(payload?.where) : null
+  if (properties) {
+    if (properties?.status) {
+      itemsQueryBuilder.andWhere({ status: properties.status })
+    }
+
+    if (properties?.visibility) {
+      itemsQueryBuilder.andWhere({ visibility: properties.visibility })
+    }
+
+    if (properties?.createdAt) {
+      itemsQueryBuilder.andWhere(`date_trunc('day', "createdAt") = :createdAt`, {
+        createdAt: properties.createdAt.format('yyyy-mm-dd'),
+      })
+    }
+  }
+
+  // Sort and order by fields
+  if (payload?.sort) {
+    const sortedFields = payload.sort.split(',')
+    sortedFields.forEach(field => {
+      const values = field.split(':')
+      if (values.length !== 2) {
+        return
+      }
+
+      const property = values[0]
+      const direction = values[1].toUpperCase() === 'ASC' ? 'ASC' : 'DESC'
+
+      itemsQueryBuilder.orderBy(`item.${property}`, direction)
+    })
+  }
+
+  // Paginate and limit if added
+  const limit = payload?.limit ? payload.limit : 25
+  const page = payload?.page ? payload.page : 1
+  const offset = limit * (page - 1)
+
+  itemsQueryBuilder.offset(offset)
+  itemsQueryBuilder.limit(limit)
+
+  const [items, count] = await itemsQueryBuilder.getManyAndCount()
 
   return {
     count: items.length,
+    totalCount: count,
+    page: page,
+    perPageCount: limit,
     items: items,
   }
 }

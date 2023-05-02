@@ -6,13 +6,31 @@ import itemService from '../services/item.service'
 import { ItemStatus, ItemVisibility } from '../database/entities/item.entity'
 
 /**
- * Handles request to retrieve the list of all public items
+ * Handles request to retrieve the filtered, sorted, and paginated list of the user's items
  * @param req The request object
  * @param res The response object
  */
 export async function listItems(req: Request, res: Response): Promise<void> {
   try {
-    const response = await itemService.getItems()
+    // Get user from req
+    const user = req.user!
+
+    // Get all qs options
+    const queryObj = { ...req.query }
+
+    // Get the item properties to filter by
+    const excludedFields = ['page', 'sort', 'limit']
+    excludedFields.forEach(x => delete queryObj[x])
+
+    // Build qs for where clause
+    let queryString = JSON.stringify(queryObj)
+
+    const response = await itemService.getItems(user.id, {
+      page: Number(req.query?.page),
+      limit: Number(req.query?.limit),
+      sort: String(req.query?.sort),
+      where: queryString,
+    })
 
     res.status(StatusCode.OK).json(response)
   } catch (err) {
