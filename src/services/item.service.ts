@@ -25,7 +25,7 @@ const itemRepository = appDataSource.getRepository(Item)
  */
 export async function getItems(userId: number, payload: FilterItemsPayload): Promise<GetItemsResponse> {
   // Start the query builder
-  let itemsQueryBuilder = itemRepository
+  const itemsQueryBuilder = itemRepository
     .createQueryBuilder('item')
     .select([
       'item.id',
@@ -169,7 +169,7 @@ export async function updateItem(
     }
   }
 
-  const updatedItem = await itemRepository.update({ id: id }, { ...payload })
+  await itemRepository.update({ id: id }, { ...payload })
 
   return {
     result: 'success',

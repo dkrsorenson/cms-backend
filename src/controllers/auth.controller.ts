@@ -10,7 +10,9 @@ import { StatusCode } from '../types/http-status-codes'
  */
 export async function login(req: Request, res: Response): Promise<void> {
   try {
+    // Get req body
     const { username, pin } = req.body
+
     const response = await authService.login(username, pin)
 
     if (response.result === 'success') {
@@ -19,6 +21,8 @@ export async function login(req: Request, res: Response): Promise<void> {
       res.status(response.statusCode).json(response.error)
     }
   } catch (err: any) {
+    console.error(err)
+
     const message = err.message ?? `Sorry, something went wrong.`
     res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: message })
   }
@@ -31,7 +35,9 @@ export async function login(req: Request, res: Response): Promise<void> {
  */
 export async function signup(req: Request, res: Response): Promise<void> {
   try {
+    // Get req body
     const { username, pin } = req.body
+
     const response = await authService.signup({ username: username, pin: pin })
 
     if (response.result === 'success') {
@@ -40,6 +46,8 @@ export async function signup(req: Request, res: Response): Promise<void> {
       res.status(response.statusCode).json(response.error)
     }
   } catch (err: any) {
+    console.error(err)
+
     const message = err.message ?? `Sorry, something went wrong.`
     res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: message })
   }

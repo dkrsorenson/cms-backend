@@ -10,12 +10,13 @@ export const checkUser = async (req: Request, res: Response, next: NextFunction)
     const uid = res.locals.jwtPayload.userUid
     const user = await userService.getUserByUid(uid)
 
-    // Verify the user exists and is the correct user
+    // Verify the user exists
     if (!user) {
       res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
       return
     }
 
+    // Verify it's the correct user
     if (user?.uid !== uid) {
       res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
       return
@@ -30,6 +31,7 @@ export const checkUser = async (req: Request, res: Response, next: NextFunction)
     // Add user object to the request
     req.user = user
   } catch (err) {
+    console.error(err)
     res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
     return
   }

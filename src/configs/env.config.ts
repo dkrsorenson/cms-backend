@@ -4,8 +4,8 @@ import dotenv from 'dotenv'
 // Parsing the env file
 dotenv.config({ path: path.resolve(__dirname, '../config/config.env') })
 
-// Interface to load env variables
-interface ENV {
+// Type to load env variables
+type ENV = {
   PORT: number | undefined
   HOST: string | undefined
   DB_HOST: string | undefined
@@ -18,8 +18,8 @@ interface ENV {
   JWT_EXPIRATION: string | undefined
 }
 
-// Interface for configs
-interface Config {
+// Type for configs
+type Config = {
   PORT: number
   HOST: string
   DB_HOST: string
@@ -32,7 +32,7 @@ interface Config {
   JWT_EXPIRATION: string
 }
 
-// Loading process.env as ENV interface
+// Loading process.env as ENV type
 const getConfig = (): ENV => {
   return {
     PORT: process.env.PORT ? Number(process.env.PORT) : undefined,

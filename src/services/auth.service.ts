@@ -76,7 +76,7 @@ export async function signup(payload: SignupPayload): Promise<Result<SignupRespo
   try {
     const pinHash = await hashPassword(payload.pin)
 
-    const user = await userService.createUser({
+    await userService.createUser({
       username: payload.username,
       pinHash: pinHash,
       status: UserStatus.Active,
@@ -90,7 +90,8 @@ export async function signup(payload: SignupPayload): Promise<Result<SignupRespo
     }
   } catch (err) {
     console.error(err)
-    throw new Error(`Signup unexpectedly failed. Please try again.`)
+
+    throw new Error(`Signup unexpectedly failed.`)
   }
 }
 

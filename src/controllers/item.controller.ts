@@ -12,8 +12,10 @@ import { ItemStatus, ItemVisibility } from '../database/entities/item.entity'
  */
 export async function listItems(req: Request, res: Response): Promise<void> {
   try {
-    // Get user from req
-    const user = req.user!
+    // Verify user was set
+    if (!req.user) {
+      throw new Error('An unexpected error occurred. Could not identify user.')
+    }
 
     // Get all qs options
     const queryObj = { ...req.query }
@@ -24,9 +26,9 @@ export async function listItems(req: Request, res: Response): Promise<void> {
     excludedFields.forEach(x => delete queryObj[x])
 
     // Build qs for where clause
-    let queryString = JSON.stringify(queryObj)
+    const queryString = JSON.stringify(queryObj)
 
-    const response = await itemService.getItems(user.id, {
+    const response = await itemService.getItems(req.user.id, {
       page: Number(req.query?.page),
       limit: Number(req.query?.limit),
       sort: String(req.query?.sort),
@@ -47,11 +49,16 @@ export async function listItems(req: Request, res: Response): Promise<void> {
  */
 export async function getItemById(req: Request, res: Response): Promise<void> {
   try {
+    // Verify user was set
+    if (!req.user) {
+      throw new Error('An unexpected error occurred. Could not identify user.')
+    }
+
+    // Get params
     const { id } = req.params
     const itemId = parseInt(id)
-    const user = req.user!
 
-    const response = await itemService.getItemById(itemId, user.id)
+    const response = await itemService.getItemById(itemId, req.user.id)
 
     if (response.result === 'success') {
       res.status(StatusCode.OK).json(response.value)
@@ -71,11 +78,16 @@ export async function getItemById(req: Request, res: Response): Promise<void> {
  */
 export async function createItem(req: Request, res: Response): Promise<void> {
   try {
+    // Verify user was set
+    if (!req.user) {
+      throw new Error('An unexpected error occurred. Could not identify user.')
+    }
+
+    // Get req body
     const { title, content, status, visibility } = req.body
-    const user = req.user!
 
     const response = await itemService.createItem({
-      userId: user.id,
+      userId: req.user.id,
       title: title,
       content: content,
       status: <ItemStatus>status,
@@ -100,11 +112,16 @@ export async function createItem(req: Request, res: Response): Promise<void> {
  */
 export async function updateItem(req: Request, res: Response): Promise<void> {
   try {
+    // Verify user was set
+    if (!req.user) {
+      throw new Error('An unexpected error occurred. Could not identify user.')
+    }
+
+    // Get params
     const { id } = req.params
     const itemId = parseInt(id)
-    const user = req.user!
 
-    const response = await itemService.updateItem(itemId, user.id, {
+    const response = await itemService.updateItem(itemId, req.user.id, {
       title: req.body?.title,
       content: req.body?.content,
       status: req.body?.status,
@@ -129,11 +146,16 @@ export async function updateItem(req: Request, res: Response): Promise<void> {
  */
 export async function deleteItem(req: Request, res: Response): Promise<void> {
   try {
+    // Verify user was set
+    if (!req.user) {
+      throw new Error('An unexpected error occurred. Could not identify user.')
+    }
+
+    // Get params
     const { id } = req.params
     const itemId = parseInt(id)
-    const user = req.user!
 
-    const response = await itemService.deleteItem(itemId, user.id)
+    const response = await itemService.deleteItem(itemId, req.user.id)
 
     if (response.result === 'success') {
       res.status(StatusCode.OK).json(response.value)
@@ -142,7 +164,7 @@ export async function deleteItem(req: Request, res: Response): Promise<void> {
     }
   } catch (err) {
     console.error(err)
-    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Failed to update item.' })
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Failed to delete item.' })
   }
 }
 

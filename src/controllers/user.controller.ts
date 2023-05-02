@@ -10,8 +10,11 @@ import { StatusCode } from '../types/http-status-codes'
  */
 export async function getMe(req: Request, res: Response): Promise<void> {
   try {
-    const user = req.user!
-    const response = await userService.getMe(user.id)
+    if (!req.user) {
+      throw new Error('An unexpected error occurred. Could not identify user.')
+    }
+
+    const response = await userService.getMe(req.user.id)
 
     if (response.result === 'success') {
       res.status(StatusCode.OK).json(response.value)
@@ -19,8 +22,9 @@ export async function getMe(req: Request, res: Response): Promise<void> {
       res.status(response.statusCode).json(response.error)
     }
   } catch (err: any) {
-    const message = err.message ?? `Sorry, something went wrong.`
-    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: message })
+    console.error(err)
+
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: 'Failed to fetch user information.' })
   }
 }
 
