@@ -22,7 +22,7 @@ export interface IAuthService {
 
 @injectable()
 export class AuthService implements IAuthService {
-  @inject(TYPES.UserService) private userService!: IUserService
+  @inject(TYPES.UserService) userService!: IUserService
 
   async login(username: string, pin: string): Promise<Result<LoginResponse, ErrorResponse>> {
     const user = await this.userService.getUserByUsername(username)
