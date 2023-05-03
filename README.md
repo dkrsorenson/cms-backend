@@ -98,7 +98,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/item/:id</b></code> <code>(gets the item by ID (for the logged-in user))</code></summary>
+ <summary><code>GET</code> <code><b>/item/:id</b></code> <code>(gets an item by ID (for the logged-in user))</code></summary>
 
 ##### Path Params
 
@@ -163,7 +163,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>DELETE</code> <code><b>/item/:id</b></code> <code>(deletes the item by ID (for the logged-in user))</code></summary>
+ <summary><code>DELETE</code> <code><b>/item/:id</b></code> <code>(deletes an item by ID (for the logged-in user))</code></summary>
 
 ##### Path Params
 
