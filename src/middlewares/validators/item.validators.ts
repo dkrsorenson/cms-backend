@@ -7,19 +7,19 @@ const ItemVisibilities = Object.values(ItemVisibility)
 export const getItemsValidator = [
   query('page').isInt().withMessage('Page value must be a number.').optional(),
   query('limit').isInt().withMessage('Limit value must be a number.').optional(),
-  query('visibility')
-    .toLowerCase()
-    .isString()
-    .withMessage('Visibility value must be a string.')
-    .isIn(ItemVisibilities)
-    .withMessage(`Visibility value must be in the following: ${ItemVisibilities}.`)
-    .optional(),
   query('status')
     .toLowerCase()
     .isString()
     .withMessage('Status value must be a string.')
     .isIn(ItemStatuses)
     .withMessage(`Status value must be in the following: ${ItemStatuses}.`)
+    .optional(),
+  query('visibility')
+    .toLowerCase()
+    .isString()
+    .withMessage('Visibility value must be a string.')
+    .isIn(ItemVisibilities)
+    .withMessage(`Visibility value must be in the following: ${ItemVisibilities}.`)
     .optional(),
   query('sort')
     .isString()
@@ -35,8 +35,14 @@ export const createItemValidator = [
     .isString()
     .withMessage('Title value must be a string.')
     .notEmpty({ ignore_whitespace: true })
-    .withMessage('Title cannot be empty.'),
-  body('content').isString().withMessage('Content value must be a string.'),
+    .withMessage('Title cannot be empty.')
+    .isLength({ max: 120 })
+    .withMessage('The title can only be up to 120 characters long.'),
+  body('description')
+    .isString()
+    .withMessage('Description must be a string.')
+    .isLength({ max: 500 })
+    .withMessage('The description can only be up to 500 characters long.'),
   body('status')
     .toLowerCase()
     .isString()
@@ -62,8 +68,15 @@ export const updateItemValidator = [
     .withMessage('Title value must be a string.')
     .notEmpty({ ignore_whitespace: true })
     .withMessage('Title cannot be empty.')
+    .isLength({ max: 120 })
+    .withMessage('The title can only be up to 120 characters long.')
     .optional(),
-  body('content').isString().withMessage('Content value must be a string.').optional(),
+  body('description')
+    .isString()
+    .withMessage('Description must be a string.')
+    .isLength({ max: 500 })
+    .withMessage('The description can only be up to 500 characters long.')
+    .optional(),
   body('status')
     .toLowerCase()
     .isString()

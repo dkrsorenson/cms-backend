@@ -22,7 +22,7 @@ export type GetItemResponse = {
 export type CreateItemPayload = {
   userId: number
   title: string
-  content: string
+  description: string
   status: ItemStatus
   visibility: ItemVisibility
 }
@@ -33,7 +33,7 @@ export type CreateItemResponse = {
 
 export type UpdateItemPayload = {
   title?: string
-  content?: string
+  description?: string
   status?: ItemStatus
   visibility?: ItemVisibility
 }

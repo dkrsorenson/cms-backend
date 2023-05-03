@@ -128,11 +128,6 @@
 							"disabled": true
 						},
 						{
-							"key": "title",
-							"value": "",
-							"disabled": true
-						},
-						{
 							"key": "sort",
 							"value": "",
 							"disabled": true
@@ -177,7 +172,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"\",\r\n    \"content\": \"\",\r\n    \"status\": \"active\",\r\n    \"visibility\": \"private\"\r\n}",
+					"raw": "{\r\n    \"title\": \"\",\r\n    \"description\": \"\",\r\n    \"status\": \"active\",\r\n    \"visibility\": \"private\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -208,7 +203,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    /* Remove the fields you don't want updated */\r\n    \"title\": \"\",\r\n    \"content\":  \"\",\r\n    \"status\":  \"\",\r\n    \"visibility\":  \"\"\r\n}",
+					"raw": "{\r\n    /* Remove the fields you don't want updated */\r\n    \"title\": \"\",\r\n    \"description\":  \"\",\r\n    \"status\":  \"\",\r\n    \"visibility\":  \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

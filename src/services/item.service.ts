@@ -30,7 +30,7 @@ export async function getItems(userId: number, payload: FilterItemsPayload): Pro
     .select([
       'item.id',
       'item.title',
-      'item.content',
+      'item.description',
       'item.status',
       'item.visibility',
       'item.createdAt',
@@ -47,11 +47,6 @@ export async function getItems(userId: number, payload: FilterItemsPayload): Pro
 
     if (properties?.visibility) {
       itemsQueryBuilder.andWhere({ visibility: properties.visibility })
-    }
-
-    // Only doing 1:1 comparison for now
-    if (properties?.title) {
-      itemsQueryBuilder.andWhere({ title: properties.title })
     }
   }
 
@@ -101,7 +96,7 @@ export async function getItems(userId: number, payload: FilterItemsPayload): Pro
  */
 export async function getItemById(id: number, userId: number): Promise<Result<GetItemResponse, ErrorResponse>> {
   const item = await itemRepository.findOne({
-    select: ['id', 'title', 'content', 'status', 'visibility', 'createdAt', 'updatedAt'],
+    select: ['id', 'title', 'description', 'status', 'visibility', 'createdAt', 'updatedAt'],
     where: { id: id, userId: userId },
   })
 
@@ -132,7 +127,7 @@ export async function createItem(payload: CreateItemPayload): Promise<Result<Cre
   const item = itemRepository.create({
     userId: payload.userId,
     title: payload.title,
-    content: payload.content,
+    description: payload.description,
     status: payload.status,
     visibility: payload.visibility,
   })

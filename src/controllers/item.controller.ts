@@ -84,12 +84,12 @@ export async function createItem(req: Request, res: Response): Promise<void> {
     }
 
     // Get req body
-    const { title, content, status, visibility } = req.body
+    const { title, description, status, visibility } = req.body
 
     const response = await itemService.createItem({
       userId: req.user.id,
       title: title,
-      content: content,
+      description: description,
       status: <ItemStatus>status,
       visibility: <ItemVisibility>visibility,
     })
@@ -123,7 +123,7 @@ export async function updateItem(req: Request, res: Response): Promise<void> {
 
     const response = await itemService.updateItem(itemId, req.user.id, {
       title: req.body?.title,
-      content: req.body?.content,
+      description: req.body?.description,
       status: req.body?.status,
       visibility: req.body?.visibility,
     })

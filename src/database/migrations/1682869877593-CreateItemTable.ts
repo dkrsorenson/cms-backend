@@ -7,8 +7,8 @@ export class CreateItemTable1682869877593 implements MigrationInterface {
         "id" serial PRIMARY KEY,
 	
         "user_id" int NOT NULL,
-        "title" varchar(256) NOT NULL,
-        "content" TEXT NOT NULL,
+        "title" varchar(128) NOT NULL,
+        "description" varchar(512) NOT NULL,
         "status" varchar(64) NOT NULL,
         "visibility" varchar(64) NOT NULL,
 
@@ -34,7 +34,7 @@ export class CreateItemTable1682869877593 implements MigrationInterface {
     await queryRunner.query(`
       DROP TRIGGER IF EXISTS "update_item_updated_at" ON "item";
 
-      ALTER TABLE "user" DROP CONSTRAINT IF EXISTS "fk_item_user_id";
+      ALTER TABLE "item" DROP CONSTRAINT IF EXISTS "fk_item_user_id";
 
       DROP INDEX IF EXISTS "ix_item_status";
       DROP INDEX IF EXISTS "ix_item_visibility";

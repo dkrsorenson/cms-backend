@@ -24,7 +24,7 @@ export class Item {
   title!: string
 
   @Column()
-  content!: string
+  description!: string
 
   @Column({ type: 'enum', enum: ItemStatus })
   status!: ItemStatus
