@@ -24,7 +24,7 @@ export const getItemsValidator = [
   query('sort')
     .isString()
     .matches('([a-zA-Z0-9 ]*:[a-zA-Z0-9- :]*)')
-    .withMessage(`Sort by values must follow the key:asc pattern. Example: "key1:asc,key2:desc".`)
+    .withMessage(`Sort by values must follow the key:asc pattern. Example: "createdAt:desc,title:asc".`)
     .optional(),
 ]
 

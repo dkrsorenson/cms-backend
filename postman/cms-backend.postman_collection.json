@@ -128,12 +128,12 @@
 							"disabled": true
 						},
 						{
-							"key": "sort",
+							"key": "title",
 							"value": "",
 							"disabled": true
 						},
 						{
-							"key": "title",
+							"key": "sort",
 							"value": "",
 							"disabled": true
 						}
