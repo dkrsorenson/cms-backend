@@ -12,14 +12,14 @@ export const getItemsValidator = [
     .isString()
     .withMessage('Visibility value must be a string.')
     .isIn(ItemVisibilities)
-    .withMessage(`Visibility value must be in the following: ${ItemStatuses}.`)
+    .withMessage(`Visibility value must be in the following: ${ItemVisibilities}.`)
     .optional(),
   query('status')
     .toLowerCase()
     .isString()
     .withMessage('Status value must be a string.')
     .isIn(ItemStatuses)
-    .withMessage(`Status value must be in the following: ${ItemVisibilities}.`)
+    .withMessage(`Status value must be in the following: ${ItemStatuses}.`)
     .optional(),
   query('sort')
     .isString()
