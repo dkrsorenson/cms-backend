@@ -12,19 +12,19 @@ export const checkUser = async (req: Request, res: Response, next: NextFunction)
 
     // Verify the user exists
     if (!user) {
-      res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
+      res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized.' })
       return
     }
 
     // Verify it's the correct user
     if (user?.uid !== uid) {
-      res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
+      res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized.' })
       return
     }
 
     // Check if user is in an active status
     if (user?.status !== UserStatus.Active) {
-      res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
+      res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized.' })
       return
     }
 
@@ -32,7 +32,7 @@ export const checkUser = async (req: Request, res: Response, next: NextFunction)
     req.user = user
   } catch (err) {
     console.error(err)
-    res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized' })
+    res.status(StatusCode.UNAUTHORIZED).send({ message: 'Unauthorized.' })
     return
   }
 
