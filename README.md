@@ -81,7 +81,6 @@ Base URL: http://localhost:3001/api/v1/
 > | limit      | optional | number    | The number of items desired per page. Default limit: 25.                               |
 > | status     | optional | string    | Filters by the status. Valid values are 'active', 'draft', 'inactive', and 'archived'. |
 > | visibility | optional | string    | Filters by the visibility. Valid values are 'public' and 'private'.                    |
-> | title      | optional | string    | Filters by the title. For now the title must be an exact match.                        |
 > | sort       | optional | string    | Sorts by the specified fields. Example format: "createdAt:desc,title:asc".             |
 
 ##### Responses
