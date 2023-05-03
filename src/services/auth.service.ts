@@ -18,7 +18,7 @@ export async function login(username: string, pin: string): Promise<Result<Login
 
     return {
       result: 'error',
-      statusCode: StatusCode.NOT_FOUND,
+      statusCode: StatusCode.BAD_REQUEST,
       error: {
         message: `Invalid username or pin.`,
       },
