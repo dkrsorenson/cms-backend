@@ -1,15 +1,18 @@
+import 'reflect-metadata'
 import express, { Application } from 'express'
 import { Server } from 'http'
 
+import { Container } from 'inversify'
+import { InversifyExpressServer } from 'inversify-express-utils'
+
 import config from './configs/env.config'
-import routes from './routes'
 
 export class ApplicationServer {
   private expressApp: Application
   private server?: Server
 
-  constructor() {
-    this.expressApp = this.createExpressApplication()
+  constructor(container: Container) {
+    this.expressApp = this.createExpressApplication(container)
   }
 
   public start(): Promise<void> {
@@ -34,16 +37,13 @@ export class ApplicationServer {
     console.log('Server is stopped.')
   }
 
-  private createExpressApplication(): express.Application {
-    const app: Application = express()
+  private createExpressApplication(container: Container): express.Application {
+    const server = new InversifyExpressServer(container)
+    server.setConfig(app => {
+      app.disable('x-powered-by')
+      app.use(express.json())
+    })
 
-    app.disable('x-powered-by')
-    app.use(express.json())
-    app.use('/', routes)
-
-    //app.use(cors())
-    //app.use(compression())
-
-    return app
+    return server.build()
   }
 }
