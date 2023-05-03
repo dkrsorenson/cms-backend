@@ -26,11 +26,13 @@
 - Paste the token into the `jwt_token` field in the Variables section of the collection
 - You can start creating items now!
 
+---
+
 ## API Documentation
 
 Base URL: http://localhost:3001/api/v1/
 
----
+
 
 #### Authorization Endpoints
 
@@ -75,7 +77,7 @@ Base URL: http://localhost:3001/api/v1/
 
 </details>
 
----
+
 
 #### User Endpoints
 
@@ -90,7 +92,7 @@ Base URL: http://localhost:3001/api/v1/
 
 </details>
 
----
+
 
 #### Item Endpoints
 
@@ -195,7 +197,7 @@ Base URL: http://localhost:3001/api/v1/
 
 </details>
 
----
+
 
 #### Middlewares
 
@@ -208,3 +210,13 @@ Middlewares run with all item and user related requests to authenticate the user
 > | `401`     | `application/json` | <pre>{<br> "message": "Unauthorized."<br>}</pre>                |
 > | `401`     | `application/json` | <pre>{<br> "message": "Expired token, unauthorized."<br>}</pre> |
 > | `401`     | `application/json` | <pre>{<br> "message": "Invalid token, unauthorized."<br>}</pre> |
+
+---
+
+## Development Notes
+
+To run locally, update the `.env` configurations for your own local postgres database and run `npm run dev`. It should start the API on http://localhost:3001/.
+
+For database migrations, run `npm run migration:create ./src/database/migration/NewMigrationName`.
+
+For unit tests, run `npm run test_unit`.
