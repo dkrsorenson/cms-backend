@@ -33,7 +33,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>POST</code> <code><b>/auth/login</b></code> <code>(logins existing user and returns auth token)</code></summary>
+ <summary><code>POST</code> <code><b>/auth/login</b></code> <code>(logs in an existing user and returns auth token)</code></summary>
 
 ##### Body
 
@@ -74,7 +74,7 @@ Base URL: http://localhost:3001/api/v1/
 #### Item Endpoints
 
 <details>
- <summary><code>GET</code> <code><b>/items</b></code> <code>(gets a paginated list of filtered and/or sorted items belonging to the logged-in user)</code></summary>
+ <summary><code>GET</code> <code><b>/items</b></code> <code>(gets a paginated list of filtered and/or sorted items (belonging to the logged-in user))</code></summary>
 
 ##### Query Params
 
@@ -117,7 +117,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>POST</code> <code><b>/items</b></code> <code>(create a new item for the logged-in user)</code></summary>
+ <summary><code>POST</code> <code><b>/items</b></code> <code>(create a new item (for the logged-in user))</code></summary>
 
 ##### Body
 
@@ -140,7 +140,7 @@ Base URL: http://localhost:3001/api/v1/
 
 
 <details>
- <summary><code>PATCH</code> <code><b>/items</b></code> <code>(updates an existing item for the logged-in user)</code></summary>
+ <summary><code>PATCH</code> <code><b>/items</b></code> <code>(updates an existing item (for the logged-in user))</code></summary>
 
 ##### Body
 
