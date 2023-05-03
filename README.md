@@ -33,7 +33,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>POST</code> <code><b>/auth/login</b></code> <code>(logs in an existing user and returns auth token)</code></summary>
+ <summary><code>POST</code> <code><b>/auth/login</b></code> <code>(logs in an existing user and returns an auth token)</code></summary>
 
 ##### Body
 
@@ -59,7 +59,7 @@ Base URL: http://localhost:3001/api/v1/
 #### User Endpoints
 
 <details>
- <summary><code>GET</code> <code><b>/user/me</b></code> <code>(gets the user's information)</code></summary>
+ <summary><code>GET</code> <code><b>/users/me</b></code> <code>(gets the user's information)</code></summary>
 
 ##### Responses
 
@@ -98,7 +98,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/items/:id</b></code> <code>(gets an item by ID (for the logged-in user))</code></summary>
+ <summary><code>GET</code> <code><b>/items/:id</b></code> <code>(gets an item by ID (belonging to the logged-in user))</code></summary>
 
 ##### Path Params
 
@@ -117,7 +117,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>POST</code> <code><b>/items</b></code> <code>(create a new item (for the logged-in user))</code></summary>
+ <summary><code>POST</code> <code><b>/items</b></code> <code>(creates a new item (for the logged-in user))</code></summary>
 
 ##### Body
 
@@ -140,7 +140,7 @@ Base URL: http://localhost:3001/api/v1/
 
 
 <details>
- <summary><code>PATCH</code> <code><b>/items/:id</b></code> <code>(updates an existing item (for the logged-in user))</code></summary>
+ <summary><code>PATCH</code> <code><b>/items/:id</b></code> <code>(updates an item by ID (for the logged-in user))</code></summary>
 
 ##### Body
 
@@ -191,6 +191,6 @@ Middlewares run with all item and user related requests to authenticate the user
 
 > | http code     | content-type                      | response                                                            |
 > |---------------|-----------------------------------|---------------------------------------------------------------------|
-> | `401`         | `application/json`                | <pre>{<br>  "message": "Unauthorized"<br>}</pre> |
+> | `401`         | `application/json`                | <pre>{<br>  "message": "Unauthorized."<br>}</pre> |
 > | `401`         | `application/json`                | <pre>{<br>  "message": "Expired token, unauthorized."<br>}</pre> |
 > | `401`         | `application/json`                | <pre>{<br>  "message": "Invalid token, unauthorized."<br>}</pre> |
