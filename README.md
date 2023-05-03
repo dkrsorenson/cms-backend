@@ -98,7 +98,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/item/:id</b></code> <code>(gets an item by ID (for the logged-in user))</code></summary>
+ <summary><code>GET</code> <code><b>/items/:id</b></code> <code>(gets an item by ID (for the logged-in user))</code></summary>
 
 ##### Path Params
 
@@ -140,7 +140,7 @@ Base URL: http://localhost:3001/api/v1/
 
 
 <details>
- <summary><code>PATCH</code> <code><b>/items</b></code> <code>(updates an existing item (for the logged-in user))</code></summary>
+ <summary><code>PATCH</code> <code><b>/items/:id</b></code> <code>(updates an existing item (for the logged-in user))</code></summary>
 
 ##### Body
 
@@ -163,7 +163,7 @@ Base URL: http://localhost:3001/api/v1/
 </details>
 
 <details>
- <summary><code>DELETE</code> <code><b>/item/:id</b></code> <code>(deletes an item by ID (for the logged-in user))</code></summary>
+ <summary><code>DELETE</code> <code><b>/items/:id</b></code> <code>(deletes an item by ID (for the logged-in user))</code></summary>
 
 ##### Path Params
 
