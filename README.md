@@ -2,6 +2,30 @@
 
 ## Setup and Testing
 
+### Requirements
+
+- https://nodejs.org/en/download
+- https://www.postgresql.org/download/
+- https://docs.docker.com/get-docker/
+- https://www.postman.com/
+
+### How to Setup
+ 
+- Clone the repository
+- Copy and paste the `.env.sample` file and name it `.env`
+- Run `docker-compose up -d --build` to build the docker container
+- Import the collection from the `postman` folder (in the root directory) into the Postman app
+- API should be running on http://localhost:3001/
+
+### How to Test with Postman
+
+- Create an account with the `auth/signup` route (more information below)
+- Get a token from the `auth/login` route (more information below)
+- Copy just the token value without the quotes
+- Click on the root folder of the Postman collection
+- Paste the token into the `jwt_token` field in the Variables section of the collection
+- You can start creating items now!
+
 ## API Documentation
 
 Base URL: http://localhost:3001/api/v1/
