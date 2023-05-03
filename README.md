@@ -218,5 +218,3 @@ Middlewares run with all item and user related requests to authenticate the user
 To run locally, update the `.env` configurations for your own local postgres database and run `npm run dev`. It should start the API on http://localhost:3001/.
 
 For database migrations, run `npm run migration:create ./src/database/migration/NewMigrationName`.
-
-For unit tests, run `npm run test_unit`.
