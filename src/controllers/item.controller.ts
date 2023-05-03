@@ -95,7 +95,7 @@ export async function createItem(req: Request, res: Response): Promise<void> {
     })
 
     if (response.result === 'success') {
-      res.status(StatusCode.OK).json(response.value)
+      res.status(StatusCode.CREATED).json(response.value)
     } else {
       res.status(response.statusCode).json(response.error)
     }
