@@ -1,4 +1,4 @@
-# Rajant CMS Backend - Technical Assessment
+# CMS Backend - Technical Assessment
 
 ## Setup and Testing
 
