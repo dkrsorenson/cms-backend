@@ -1,7 +1,7 @@
 {
-  "name": "rajant-cms-api",
+  "name": "cms-backend",
   "version": "1.0.0",
-  "description": "REST API for Rajant Health technical assessment.",
+  "description": "REST API for a CMS backend technical assessment.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
