@@ -1,4 +1,6 @@
-# CMS Backend - Technical Assessment
+# CMS Backend
+
+This is a sample backend for a basic content managment system with CRUD functionality.
 
 ## Setup and Testing
 
@@ -214,7 +216,7 @@ Middlewares run with all item and user related requests to authenticate the user
 ## Development Notes
 
 To run locally:
-- Udate the `.env` configurations for your own local postgres database 
+- Update the `.env` configurations for your own local postgres database 
 - Make sure to run `npm ci` and then `npm run build` to install packages and build the project
 - Run `npm run dev`
 - It should start the API on http://localhost:3001/
